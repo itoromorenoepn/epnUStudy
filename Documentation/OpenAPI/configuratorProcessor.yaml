@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: ivan.toromoreno@epn.edu.ec
+    name: Iván Toromoreno
+    url: https://github.com/itoromorenoepn/
+  description: API for EPN U Study Application, this document describes all 
+    the availables APIs for the project
+  title: EPN U Study - API
+  version: 1.0.0
+servers:
+- description: Development environment
+  url: http://localhost:300
+tags:
+- description: Users methods
+  name: Users
+paths:
+  /api/v1/users:
+    post:
+      description: This method should be invoked to store a new user on the application.
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        201:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+          description: CREATED. The new user was created.
+        401:
+          description: UNAUTHORIZED. The caller has not permissions to execute the
+            service
+        409:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Reason'
+                type: array
+          description: CONFLICT. The request was received correctly but a validation
+            or some logic not permitted to accept the engine credentials store request. The response
+            body contains the reason why the request could not be processed.
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reason'
+          description: SERVER ERROR. An unexpected error ocurred while processing
+            the request.
+      security:
+      - apiKey: []
+      summary: Create a new user
+      tags:
+      - Users
+components:
+  schemas:
+    User:
+      description: User object.
+      type: object
+      properties:
+        userId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        username: 
+          type: string
+      required:
+        - userId
+        - name
+        - email
+        - username
+    UserResponse:
+      description: User object.
+      type: object
+      properties:
+        userId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        username: 
+          type: string
+    Reason:
+      description: Information about a status, error or condition in the payment system
+      type: object
+      properties:
+        code: 
+          description: A mnemonic string used to identify the reason
+          type: string
+        description: 
+          description: A descriptive message for the reason, the language used here would depend on the locale send in the Configuration object for the PaymentProcessRequest
+          type: string
+  securitySchemes:
+    apiKey:
+      description: The public key generated for the clients
+      in: query
+      name: X-API-KEY
+      type: apiKey
