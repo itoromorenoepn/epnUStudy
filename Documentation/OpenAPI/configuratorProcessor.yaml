@@ -57,6 +57,71 @@ paths:
       summary: Create a new user
       tags:
       - Users
+        
+  /api/v1/users/:userId:
+    get:
+      tags:
+        - Users
+      summary: Get user with ID
+
+  /api/v1/users/:userEmail:
+    get:
+      tags:
+        - Users
+      summary: Get user with Email
+
+  /api/v1/users/:userPhone:
+    get:
+      tags:
+        - Users
+      summary: Get user with phone
+
+  /api/v1/users/:username:
+    get:
+      tags:
+        - Users
+      summary: Get user with username
+
+  /api/v1/users/:role:
+    get:
+      tags:
+        - Users
+      summary: Get all the users for a given role
+      parameters:
+        - in: path
+          name: role
+          schema:
+            type: string
+          required: true
+      responses:
+        201:
+          content:
+            application/json:
+              type: array
+              $ref: '#/components/schemas/UserResponse'
+          description: CREATED. The new user was created.
+        401:
+          description: UNAUTHORIZED. The caller has not permissions to execute the
+            service
+        409:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Reason'
+                type: array
+          description: CONFLICT. The request was received correctly but a validation
+            or some logic not permitted to accept the engine credentials store request. The response
+            body contains the reason why the request could not be processed.
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reason'
+          description: SERVER ERROR. An unexpected error ocurred while processing
+            the request.
+
+
 components:
   schemas:
     User:
@@ -73,11 +138,14 @@ components:
           type: string
         username: 
           type: string
+        roles:
+            $ref: '#/components/schemas/Roles'
       required:
         - userId
         - name
         - email
         - username
+        - roles
     UserResponse:
       description: User object.
       type: object
@@ -92,6 +160,14 @@ components:
           type: string
         username: 
           type: string
+        roles:
+          $ref: '#/components/schemas/Roles'
+    Roles:
+      description: User roles on the system
+      type: array
+      items:
+        type: string
+
     Reason:
       description: Information about a status, error or condition in the payment system
       type: object
@@ -104,7 +180,7 @@ components:
           type: string
   securitySchemes:
     apiKey:
-      description: The public key generated for the clients
-      in: query
-      name: X-API-KEY
-      type: apiKey
+      description: The session generated for the clients
+      in: Header
+      name: Session
+      type: string

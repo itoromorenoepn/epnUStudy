@@ -1,0 +1,44 @@
+{
+  "roles" : [
+    {
+      "id": "estudiante",
+      "nombre": "Estudiante"
+    },
+    {
+      "id": "profesor",
+      "nombre": "Profesor"
+    },
+    {
+      "id": "administrador",
+      "nombre": "Administrador"
+    }
+  ],
+  "ciudades": [
+    {
+      "id": "uio",
+      "nombre": "Quito"
+    },
+    {
+      "id": "gye",
+      "nombre": "Guayaquil"
+    },
+    {
+      "id": "cue",
+      "nombre": "Cuencua"
+    }
+  ],
+  "sectores": [
+    {
+      "id": "sur",
+      "nombre": "Sur"
+    },
+    {
+      "id": "centro",
+      "nombre": "Centro"
+    },
+    {
+      "id": "norte",
+      "nombre": "Norte"
+    }
+  ]
+}
