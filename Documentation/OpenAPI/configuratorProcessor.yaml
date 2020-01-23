@@ -98,7 +98,7 @@ components:
       properties:
         code: 
           description: A mnemonic string used to identify the reason
-          type: string
+      type: stringPPP
         description: 
           description: A descriptive message for the reason, the language used here would depend on the locale send in the Configuration object for the PaymentProcessRequest
           type: string
