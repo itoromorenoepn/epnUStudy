@@ -1,1 +1,29 @@
-<h1>Mostrar Ciudades</h1>
+<%- include('../../shared/header',) %>
+<div class="container">
+    <% if(data.sms){ %>
+        <div class="alert alert-primary" role="alert">
+            <%= data.sms%>
+        </div>
+    <% } %>
+
+    <% if(data.error){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= data.error %>
+        </div>
+    <% } %>
+
+    <h1>Cities</h1>
+
+    <a href="/city/route/create-city">
+        <button type="button"
+                class="btn btn-primary">
+            Create City
+        </button>
+    </a>
+    <%- include('../components/show-table',
+    {
+    cities: data.city
+    })%>   
+</div>
+<%- include('../../shared/foot-page',) %>
+

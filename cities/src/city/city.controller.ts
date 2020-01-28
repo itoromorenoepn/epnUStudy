@@ -61,7 +61,7 @@ export class CityController {
         const errores = await validate(cityCreateDTO);
         if (errores.length > 0) {
             res.redirect(
-                '/city/routes/create-city?error=Error validating',
+                '/city/route/create-city?error=Error validating',
             );
         } else {
             try {
@@ -70,7 +70,7 @@ export class CityController {
                         city,
                     );
                 res.redirect(
-                    '/city/routes/search-show-city',
+                    '/city/route/search-city',
                 );
             } catch (error) {
                 console.error(error);
@@ -83,7 +83,7 @@ export class CityController {
 
     }
     @Get('route/search-city')
-    async rutaMostrarUsuarios(
+    async routeSearchCity(
         @Query('sms') sms: string,
         @Query('error') error: string,
         @Res() res,
@@ -92,7 +92,7 @@ export class CityController {
         res.render(
             'city/routes/search-show-city',
             {
-                datos: {
+                data: {
                     sms,
                     city,
                     error,

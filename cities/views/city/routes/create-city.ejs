@@ -1,25 +1,26 @@
 <%- include('../../shared/header',) %>
+<% const isEditng = data.city != undefined;%>
 <div class="container">
-    <!--
+
+    
     <% if(data.error){ %>
         <div class="alert alert-danger" role="alert">
-            <%= datos.error %>
+            <%= data.error %>
         </div>
     <% } %> 
-    -->
+    <!-- CONDICION ? TRUE : FALSE -->
+    <h1><%= isEditng ? 'Editing ' + data.city.name : 'Create City' %></h1>
 
-    <h1>Create City</h1>
-
-    <form action="/city"
-          method="POST"
+   
+    <form action="/city<%= isEditng ? '/' + data.city.id : '' %>"
+        method="POST"
     >
-
-        <div class="form-group">
+            <div class="form-group">
             <label form="nameID">Name</label>
-            <input
-                    id="nameID"
+            <input  id="nameID"
                     type="text"
                     name="name"
+                    value="<%= isEditng ? data.city.name : '' %>"
                     placeholder="Ej: Quito"
                     title="Enter city name"
                     class="form-control"
@@ -50,6 +51,11 @@
                 class ="btn btn-success"
         >
             Create City
+        </button>
+        <button type="reset"
+                class="btn btn-secondary"
+        >
+            Clean Form
         </button>
         <!--<button type="reset"
                 class="btn btn-secundary">

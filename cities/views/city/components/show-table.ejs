@@ -1,0 +1,39 @@
+<table class="table"> <!-- table -->
+    <thead> <!-- thead -->
+    <tr> <!-- table row -->
+        <th scope="col"> <!-- table header -->
+            ID
+        </th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% cities.forEach( (city) => {%>
+        <tr> <!-- table row -->
+            <th scope="row">
+                <%= city.id%>
+            </th> <!-- table header -->
+            <td>
+                <%= city.name%>
+            </td> <!-- table detail -->
+            <td>
+                <a href="/city/route/create-city/<%= city.id %>">
+                    <button type="button"
+                            class="btn btn-info">
+                        Edit
+                    </button>
+                </a>
+                <form action="/city/<%= city.id %>"
+                      method="POST"
+                >
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </td> <!-- table detail -->
+        </tr>
+    <%}); %>
+    </tbody> <!-- tbody -->
+</table>
