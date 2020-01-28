@@ -6,10 +6,13 @@ import {DeleteResult, Like, MoreThan, Repository} from "typeorm";
 export class CityService {
     constructor(
         @InjectRepository(CityEntity) // Inyectar Dependencias
-        private _repositorioUsuario: Repository<CityEntity>
+        private _repositoryCity: Repository<CityEntity>
     ) {
     }
-   
+    createOne(city: CityEntity) {
+        return this._repositoryCity
+            .save(city);
+    }
 
     buscar(
         where: any = {},
@@ -21,14 +24,14 @@ export class CityService {
         }
     ): Promise<CityEntity[]> {
 
-        // Exactamente el nombre o Exactamente la cedula
+        //Exactly the name or exactly the city
         const consultaWhere = [
             {
                 name: ''
             }
         ];
 
-        // Exactamente el nombre o LIKE la cedula
+        // Exactly the name or LIKE the city
         const consultaWhereLike = [
             {
                 name: Like('a%')
@@ -45,7 +48,7 @@ export class CityService {
             id: 30
         };
 
-        return this._repositorioUsuario
+        return this._repositoryCity
             .find({
                 where: where,
                 skip: skip,

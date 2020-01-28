@@ -14,7 +14,7 @@ import { CityEntity } from './city/city.entity';
           name: 'default', // Nombre cadena de Conex.
           type: 'mysql',
           host: 'localhost',
-          port: 32777,
+          port: 32769,
           username: 'roger',
           password: '1234',
           database: 'ustudy',

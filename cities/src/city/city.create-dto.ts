@@ -1,6 +1,6 @@
 import {IsNotEmpty, IsNumberString, IsString, Max, MaxLength, Min, MinLength} from "class-validator";
 
-export class UsuarioCreateDto {
+export class CityCreateDto {
 
     @IsNotEmpty()
     @IsString()
