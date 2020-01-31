@@ -9,7 +9,8 @@ import {
     Put,
     Query, Req, Res,
     Session,
-    UnauthorizedException
+    UnauthorizedException,
+    HttpStatus
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
@@ -18,6 +19,7 @@ import { validate } from "class-validator";
 import { DeleteResult } from 'typeorm';
 import { UserCreateDto } from './user.create-dto';
 import { UserUpdateDto } from './user.update-dto';
+import { Response } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -39,7 +41,8 @@ export class UserController {
     async createUser(
         @Body() user: UserEntity,
         @Session() session,
-    ): Promise<void> {
+        @Res() res: Response,
+    ): Promise<any> {
         const userCreateDTO = new UserCreateDto();
         userCreateDTO.name = user.name;
         userCreateDTO.icNumber = user.icNumber;
@@ -52,12 +55,13 @@ export class UserController {
             throw new BadRequestException('Validation error');
         } else {
             try {
-                this._userService
+                await this._userService
                     .createUser(
                         user,
                     );
+                return res.status(HttpStatus.CREATED).send();
             } catch (error) {
-                console.log(error)
+                res.status(HttpStatus.BAD_REQUEST).send('Duplicated unique parametter');
             }
         }
     }
@@ -88,14 +92,20 @@ export class UserController {
     }
 
     @Delete(':id')
-    deleteUser(
+    async deleteUser(
         @Param('id') id: string,
         @Session() session,
+        @Res() res: Response,
     ): Promise<DeleteResult> {
-        return this._userService
-            .deleteUser(
-                +id,
-            );
+        try {
+            res.status(HttpStatus.OK).send('Deleted')
+            return await this._userService
+                .deleteUser(
+                    +id,
+                );
+        } catch (error) {
+            res.status(HttpStatus.NOT_FOUND).send('User not found')
+        }
     }
 
     @Get()

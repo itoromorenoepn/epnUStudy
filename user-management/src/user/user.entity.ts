@@ -1,4 +1,5 @@
-import {Column, Entity, Index, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
+import { UserRoleEntity } from 'src/user-role/user-role.entity';
 
 @Entity('web_user')
 export class UserEntity {
@@ -69,16 +70,7 @@ export class UserEntity {
             comment: 'User username',
         })
     username: string;
-
-    @Index({
-        unique: true,
-    })
-    @Column(
-        {
-            type: 'varchar',
-            name: 'rolesRef',
-            nullable: false,
-            comment: 'User roles reference on the system',
-        })
-    roles: number;
+    
+    @OneToMany(type => UserRoleEntity, userRoles => userRoles.user)
+    userRoles: UserRoleEntity[];
 }
