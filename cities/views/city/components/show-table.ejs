@@ -1,5 +1,5 @@
 <table class="table"> <!-- table -->
-    <thead> <!-- thead -->
+    <thead > <!-- thead -->
     <tr> <!-- table row -->
         <th scope="col"> <!-- table header -->
             ID
@@ -19,25 +19,31 @@
                 <%= city.name%>
             </td> <!-- table detail -->
             <td>
-                <a href="/city/route/create-city/<%= city.id %>">
-                    <button type="button"
-                            class="btn btn-info">
-                        Edit
-                    </button>
-                </a>
-                <form action="/city/<%= city.id %>"
-                      method="POST"
-                >
-                    <button type="submit"
-                            class="btn btn-danger">
-                        Delete
-                    </button>
+<div class=row>
+    <div class="col-sm-4" >
+        <a href="/city/route/create-city/<%= city.id %>">
+            <button type="button"
+                    class="btn btn-info btn-block">
+                Edit
+            </button>
+        </a>
+    </div>
+    <div class="col-sm-4" >
+        <form action="/city/<%= city.id %>"
+            method="POST"
+      >
+          <button type="submit"
+                  class="btn btn-danger btn-block">
+              Delete
+          </button>
+    </div>
+</div>
                 </form>
             </td> <!-- table detail -->
             <td>
                 
-                <form action="/city/<%= city.id %>"
-                      method="POST"
+                <form action="../sector/route/search-sector/<%= city.id %>"
+                      method="GET"
                 >
                     <button type="submit"
                             class="btn btn-info">

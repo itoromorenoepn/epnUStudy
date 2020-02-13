@@ -1,6 +1,6 @@
 import {IsEmpty, IsNotEmpty, IsNumber, IsString, MaxLength, Min, MinLength} from "class-validator";
 
-export class CityUpdateDto {
+export class SectorUpdateDto {
     @IsNotEmpty()
     @IsString()
     @MinLength(3)

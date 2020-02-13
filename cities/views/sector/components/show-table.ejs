@@ -1,0 +1,41 @@
+<table class="table"> <!-- table -->
+    <thead> <!-- thead -->
+    <tr> <!-- table row -->
+        <th scope="col"> <!-- table header -->
+            ID
+        </th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+       
+    </tr>
+    </thead>
+    <tbody>
+    <% sectors.forEach( (sector) => {%>
+        <tr> <!-- table row -->
+            <th scope="row">
+                <%= sector.id%>
+            </th> <!-- table header -->
+            <td>
+                <%= sector.name%>
+            </td> <!-- table detail -->
+            <td>
+                <a href="/city/sector/route/create-sector/<%= sector.id %>">
+                    <button type="button"
+                            class="btn btn-info">
+                        Edit
+                    </button>
+                </a>
+                <form action="/sector/<%= sector.id %>"
+                      method="POST"
+                >
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </td> <!-- table detail -->
+
+        </tr>
+    <%}); %>
+    </tbody> <!-- tbody -->
+</table>

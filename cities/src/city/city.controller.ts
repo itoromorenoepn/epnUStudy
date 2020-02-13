@@ -27,7 +27,7 @@ export class CityController {
         private readonly _cityService: CityService,
     ) {
     }
-    @Get('hola')
+    @Get()
     hola(
         
     ) {

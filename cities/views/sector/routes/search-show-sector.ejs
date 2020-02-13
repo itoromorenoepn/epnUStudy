@@ -1,0 +1,30 @@
+<%- include('../../shared/header',) %>
+<div class="container">
+    <% if(data.city.name){ %>
+        <div class="alert alert-primary" role="alert">
+            <%= data.city.name%>
+        </div>
+    <% } %>
+
+    <% if(data.error){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= data.error %>
+        </div>
+    <% } %>
+
+    <h1>Sectors</h1>
+
+    <a href="../create-sector">
+        <button type="button"
+                class="btn btn-primary">
+            Create Sector
+        </button>
+    </a>
+    <%- include('../components/show-table',
+    {
+    sectors: data.sector
+    })%>   
+</div>
+
+<%- include('../../shared/foot-page',) %>
+

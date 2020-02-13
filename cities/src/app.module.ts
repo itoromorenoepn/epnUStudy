@@ -21,7 +21,7 @@ import { SectorModule } from './sector/sector.module';
           username: 'roger',
           password: '1234',
           database: 'ustudy',
-          dropSchema: true, // si ponemos falso no se borran los datos en la base 
+          dropSchema: false, // si ponemos falso no se borran los datos en la base 
           entities: [
             CityEntity,
             SectorEntity

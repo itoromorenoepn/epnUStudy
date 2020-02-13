@@ -14,6 +14,25 @@ export class CityService {
             .save(city);
     }
 
+    async buscarUno(idCiudad: number): Promise<CityEntity | string> {
+        try {
+            const respuesta =  await this._repositoryCity.findOne(idCiudad);
+            if (respuesta) {
+                return respuesta;
+            } else {
+                return new Promise((resolve, reject) => {
+                    reject('No existe resultados');
+                })
+            }
+              
+        } catch(e) {
+            console.error({
+                mensaje: 'Error buscando',
+                error: e
+            })
+        }
+    }
+
     buscar(
         where: any = {},
         skip: number = 0,

@@ -22,8 +22,8 @@ export class SectorEntity {
     
  @ManyToOne(
         type => CityEntity, // Entidad
-        //city => city.sectors, // El campo de la relacion
+        city => city.sectors, // El campo de la relacion
     )
-    city: CityEntity;
+    city: number | CityEntity;
    
 }
