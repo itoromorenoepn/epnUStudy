@@ -6,6 +6,7 @@
         </th>
         <th scope="col">Name</th>
         <th scope="col">Actions</th>
+        <th scope="col">Sector Manager</th>
     </tr>
     </thead>
     <tbody>
@@ -30,6 +31,17 @@
                     <button type="submit"
                             class="btn btn-danger">
                         Delete
+                    </button>
+                </form>
+            </td> <!-- table detail -->
+            <td>
+                
+                <form action="/city/<%= city.id %>"
+                      method="POST"
+                >
+                    <button type="submit"
+                            class="btn btn-info">
+                        Sectors
                     </button>
                 </form>
             </td> <!-- table detail -->

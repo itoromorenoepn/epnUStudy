@@ -4,11 +4,14 @@ import { AppService } from './app.service';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import { CityModule } from './city/city.module';
 import { CityEntity } from './city/city.entity';
+import { SectorEntity } from './sector/sector.entity';
+import { SectorModule } from './sector/sector.module';
 
 
 @Module({
   imports: [
     CityModule,
+    SectorModule,
     TypeOrmModule.forRoot(
         {
           name: 'default', // Nombre cadena de Conex.
@@ -21,6 +24,7 @@ import { CityEntity } from './city/city.entity';
           dropSchema: true, // si ponemos falso no se borran los datos en la base 
           entities: [
             CityEntity,
+            SectorEntity
             
           ],
           synchronize: true, // Crear -> true , Conectar -> false

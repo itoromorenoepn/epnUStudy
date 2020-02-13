@@ -1,6 +1,7 @@
-import {Column, Entity, Index, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Index, PrimaryGeneratedColumn, OneToMany} from "typeorm";
+import { SectorEntity } from "src/sector/sector.entity";
 
-@Entity('usuario_web')
+@Entity('city')
 export class CityEntity {
     @PrimaryGeneratedColumn({
         type: 'int',
@@ -16,20 +17,13 @@ export class CityEntity {
     @Column({
         type: 'varchar',
         nullable: true,
-        name: 'namecity',
+        name: 'name_city',
         comment: 'City table Name'
     })
     name?: string;
- /*
-    @Index({
-        unique: true,
-    })
-    @Column({
-        type: 'varchar',
-        nullable: false,
-        name: 'cedula',
-        comment: 'Cedula de la tabla usuario'
-    })
-    cedula: string;
- */
+    @OneToMany(
+        type => SectorEntity, // Entidad
+        sector => sector.city, // Nombre del campo
+    )
+    sectors: SectorEntity[];
 }
