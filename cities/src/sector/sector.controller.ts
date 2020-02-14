@@ -9,7 +9,8 @@ import {
     Put,
     Query, Req, Res,
     Session,
-    UnauthorizedException
+    UnauthorizedException,
+    InternalServerErrorException
 } from "@nestjs/common";
 //import { Controller } from "@nestjs/common";
 import {DeleteResult} from 'typeorm';
@@ -38,15 +39,22 @@ export class SectorController {
         return 'Hola Pendejo';
     }
 
-    @Get('route/create-sector')
-    routeCreateCity(
-        @Query('error') error: string,
+    @Get('route/create-sector/:idCity')
+    async routeCreateSector(
+        @Param('idCity') idCity: string | number,
+        @Param('error') error: string,
         @Res() res,
     ) {
+        idCity = +idCity;
+        const city = await this._cityService.buscarUno(idCity);
+        console.log(city)
+        const sector = await this._sectorService.buscar();
         res.render(
             'sector/routes/create-sector',
             {
                 data: {
+                    city,
+                    sector,
                     error,
                 },
             },
@@ -112,4 +120,21 @@ catch(error){console.error("error",error)}
     
     }
     
+    @Post('route/create-sector/:idCity')
+    async creteSector(
+        @Param('idCity') idCity: string | number,
+        @Body() sector: SectorEntity,
+    ) {
+        idCity = +idCity;
+        const query = {
+            city: idCity,
+            name: sector.name
+        }
+        
+        const respuesta = await this._sectorService.createOne(query);
+        if (!respuesta) {
+            throw new InternalServerErrorException('Error creado'); 
+        }
+        return respuesta;
+    }
 }

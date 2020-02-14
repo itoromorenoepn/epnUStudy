@@ -1,4 +1,4 @@
-import {Injectable} from "@nestjs/common";
+import {Injectable, InternalServerErrorException} from "@nestjs/common";
 //import { CityEntity } from "./city.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import {DeleteResult, Like, MoreThan, Repository} from "typeorm";
@@ -10,9 +10,13 @@ export class SectorService {
         private _repositorySector: Repository<SectorEntity>
     ) {
     }
-    createOne(sector: SectorEntity) {
-        return this._repositorySector
+    createOne(sector): Promise<SectorEntity> {
+        try {
+            return this._repositorySector
             .save(sector);
+        } catch (e) {
+            throw new InternalServerErrorException('Error creando')
+        }
     }
 
     buscar(
