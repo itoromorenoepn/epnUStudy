@@ -12,7 +12,7 @@
     <h1><%= isEditng ? 'Create sector for ' + data.city.name : 'Create Sector' %></h1>
 
    
-    <form action="/city/sector/route/create-sector<%= isEditng ? '/' + data.city.id : '' %>"
+    <form action="/city<%= isEditng ? '/' + data.city.id : '' %>/sector/route/create-sector"
         method="POST"
     >
             <div class="form-group">
@@ -34,7 +34,7 @@
         <button type="submit"
                 class ="btn btn-success"
         >
-            Create Sectore
+            Create Sector
         </button>
         <button type="reset"
                 class="btn btn-secondary"

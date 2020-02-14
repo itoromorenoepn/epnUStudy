@@ -24,7 +24,7 @@ import { CityService } from "src/city/city.service";
 
 
 
-@Controller('city/sector')
+@Controller('city/:idCity/sector')
 export class SectorController {
     // nombre="";
     constructor(
@@ -39,7 +39,7 @@ export class SectorController {
         return 'Hola Pendejo';
     }
 
-    @Get('route/create-sector/:idCity')
+    @Get('route/create-sector')
     async routeCreateSector(
         @Param('idCity') idCity: string | number,
         @Param('error') error: string,
@@ -94,7 +94,7 @@ export class SectorController {
         }
 
     }
-    @Get('route/search-sector/:idCity')
+    @Get('route/search-sector/')
     async routeSearchCity(
         @Param('idCity') idCity: string | number,
         @Param('error') error: string,
@@ -120,7 +120,7 @@ catch(error){console.error("error",error)}
     
     }
     
-    @Post('route/create-sector/:idCity')
+    @Post('route/create-sector/')
     async creteSector(
         @Param('idCity') idCity: string | number,
         @Body() sector: SectorEntity,
