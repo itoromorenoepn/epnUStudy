@@ -94,6 +94,7 @@ export class SectorController {
         }
 
     }
+    /*
     @Get('route/search-sector')
     async routeSearchCity(
         @Query('sms') sms: string,
@@ -124,8 +125,43 @@ try{
 }
 catch(error){console.error("error",error)}
     
-    }
+    }*/
+    @Get('route/search-sector')
+    async routeSearchCity(
+        @Query('sms') sms: string,
+        @Param('idCity') idCity: string | number,
+        @Param('error') error: string,
+        @Res() res,
+    ) {
+        const consulta={
+            city:idCity,
+
+        };
+try{
+    idCity = +idCity;
+    //const city = await this._cityService.buscarUno(idCity);
+    //console.log(city)
+    const sector = await this._sectorService.buscar(consulta);
     
+  //  if(sector[0]!){
+    res.render(
+        'sector/routes/search-show-sector',
+        {
+            data: {
+                sms,
+                sector,
+                error,
+            },
+        },
+    );
+  //  }
+   // else{
+    //    console.log("PERRO MALO")
+    //}
+}
+
+catch(error){console.error("error",error)}
+    }    
     @Post('route/create-sector/')
     async creteSector(
         @Param('idCity') idCity: string | number,

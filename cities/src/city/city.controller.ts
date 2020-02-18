@@ -101,20 +101,6 @@ export class CityController {
             },
         );
     }
-   /* @Post(':id')
-    deleteOne(
-        @Param('id') id: string,
-        @Res() res,
-    ): Promise<DeleteResult> {
-        res.redirect(
-            '/city/route/search-city',
-        );
-        return this._cityService
-            .borrarUno(
-                +id,
-            );
-        
-    }*/
     @Post(':id')
     async deleteOne(
         @Param('id') id: string,
@@ -131,5 +117,16 @@ export class CityController {
             res.redirect('/city/route/search-city?error=Error-Server');
         }
     }
+
+
+
+
+
+
+
+
+
+ 
+
 
 }
