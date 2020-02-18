@@ -6,36 +6,46 @@
         </th>
         <th scope="col">Name</th>
         <th scope="col">Actions</th>
-       
     </tr>
     </thead>
     <tbody>
-    <% sectors.forEach( (sector) => {%>
-        <tr> <!-- table row -->
-            <th scope="row">
-                <%= sector.id%>
-            </th> <!-- table header -->
-            <td>
-                <%= sector.name%>
-            </td> <!-- table detail -->
-            <td>
-                <a href="/city/sector/route/create-sector/<%= sector.id %>">
-                    <button type="button"
-                            class="btn btn-info">
-                        Edit
-                    </button>
-                </a>
-                <form action="/sector/<%= sector.id %>"
-                      method="POST"
-                >
-                    <button type="submit"
-                            class="btn btn-danger">
-                        Delete
-                    </button>
-                </form>
-            </td> <!-- table detail -->
 
-        </tr>
-    <%}); %>
-    </tbody> <!-- tbody -->
+        <% sectors[0].forEach( (sector) => {%>
+        <%    if(sector!=undefined){%>
+            <tr> <!-- table row -->
+                <th scope="row">
+                    <%= sector.id%>
+                </th> <!-- table header -->
+                <td>
+                    <%= sector.name%>
+                </td> <!-- table detail -->
+                
+                <td>
+    <div class=row>
+        <div class="col-sm-4" >
+            <a href="/city/sector/route/create-sector/<%= sector.id %>">
+                <button type="button"
+                        class="btn btn-info btn-block">
+                    Edit
+                </button>
+            </a>
+        </div>
+        <div class="col-sm-4" >
+            <form action="../<%= sector.id %>"
+                method="POST"
+          >
+              <button type="submit"
+                      class="btn btn-danger btn-block">
+                  Delete
+              </button>
+        </div>
+    </div>
+                    </form>
+                </td> <!-- table detail -->
+          
+            </tr>
+            <% }%><%}); %>
+
+        
+        </tbody> <!-- tbody -->
 </table>

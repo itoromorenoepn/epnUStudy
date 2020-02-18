@@ -94,27 +94,33 @@ export class SectorController {
         }
 
     }
-    @Get('route/search-sector/')
+    @Get('route/search-sector')
     async routeSearchCity(
+        @Query('sms') sms: string,
         @Param('idCity') idCity: string | number,
         @Param('error') error: string,
         @Res() res,
     ) {
 try{
     idCity = +idCity;
-    const city = await this._cityService.buscarUno(idCity);
-    console.log(city)
-    const sector = await this._sectorService.buscar();
+    //const city = await this._cityService.buscarUno(idCity);
+    //console.log(city)
+    const sector = await this._sectorService.buscarUno(idCity);
+  //  if(sector[0]!){
     res.render(
         'sector/routes/search-show-sector',
         {
             data: {
-                city,
+                sms,
                 sector,
                 error,
             },
         },
     );
+  //  }
+   // else{
+    //    console.log("PERRO MALO")
+    //}
 }
 catch(error){console.error("error",error)}
     
@@ -124,6 +130,7 @@ catch(error){console.error("error",error)}
     async creteSector(
         @Param('idCity') idCity: string | number,
         @Body() sector: SectorEntity,
+        @Res() res,
     ) {
         idCity = +idCity;
         const query = {
@@ -135,6 +142,25 @@ catch(error){console.error("error",error)}
         if (!respuesta) {
             throw new InternalServerErrorException('Error creado'); 
         }
+        res.redirect(
+            'search-sector',
+        );
         return respuesta;
+    }
+    @Post(':id')
+    async deleteOne(
+        @Param('id') id: string,
+        @Res() res,
+    ): Promise<void> {
+        try {
+            await this._sectorService
+                .borrarUno(
+                    +id,
+                );
+            res.redirect(`../sector/route/search-sector?sms=Sector ID: ${id} delete`);
+        } catch (error) {
+            console.error(error);
+            res.redirect('../sector/route/search-sector?error=Error-Server');
+        }
     }
 }

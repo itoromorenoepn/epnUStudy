@@ -62,4 +62,32 @@ export class SectorService {
             });
     }
 
+
+
+
+    async buscarUno(idCiudad: number): Promise<SectorEntity[][] | string> {
+        console.log("Ciudad perro",idCiudad);
+        try {
+            const respuesta =  [await this._repositorySector.find({where:{city:idCiudad}})];
+            console.log(respuesta)
+            if (respuesta) {
+                return respuesta;
+            } else {
+                return new Promise((resolve, reject) => {
+                    reject('No existe resultados');
+                })
+            }
+              
+        } catch(e) {
+            console.error({
+                mensaje: 'Error buscando',
+                error: e
+            })
+        }
+    }
+    borrarUno(id: number): Promise<DeleteResult> {
+        return this._repositorySector
+            .delete(id);
+    }
+
 }

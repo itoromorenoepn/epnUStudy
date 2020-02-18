@@ -49,6 +49,7 @@ export class CityController {
         );
     }
 
+
     @Post()
     async createCity(
         @Body() city: CityEntity,
@@ -100,4 +101,35 @@ export class CityController {
             },
         );
     }
+   /* @Post(':id')
+    deleteOne(
+        @Param('id') id: string,
+        @Res() res,
+    ): Promise<DeleteResult> {
+        res.redirect(
+            '/city/route/search-city',
+        );
+        return this._cityService
+            .borrarUno(
+                +id,
+            );
+        
+    }*/
+    @Post(':id')
+    async deleteOne(
+        @Param('id') id: string,
+        @Res() res,
+    ): Promise<void> {
+        try {
+            await this._cityService
+                .borrarUno(
+                    +id,
+                );
+            res.redirect(`/city/route/search-city?sms=City ID: ${id} delete`);
+        } catch (error) {
+            console.error(error);
+            res.redirect('/city/route/search-city?error=Error-Server');
+        }
+    }
+
 }

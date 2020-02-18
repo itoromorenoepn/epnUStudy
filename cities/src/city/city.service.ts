@@ -75,5 +75,9 @@ export class CityService {
                 order: order,
             });
     }
+    borrarUno(id: number): Promise<DeleteResult> {
+        return this._repositoryCity
+            .delete(id);
+    }
 
 }

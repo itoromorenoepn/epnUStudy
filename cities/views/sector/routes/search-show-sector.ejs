@@ -1,8 +1,8 @@
 <%- include('../../shared/header',) %>
 <div class="container">
-    <% if(data.city.name){ %>
+    <% if(data.sms){ %>
         <div class="alert alert-primary" role="alert">
-            <%= data.city.name%>
+            <%= data.sms%>
         </div>
     <% } %>
 
@@ -14,7 +14,7 @@
 
     <h1>Sectors</h1>
 
-    <a href="../create-sector">
+    <a href="../route/create-sector">
         <button type="button"
                 class="btn btn-primary">
             Create Sectore
@@ -23,8 +23,7 @@
     <%- include('../components/show-table',
     {
     sectors: data.sector
-    })%>   
+    })%>  
 </div>
-
 <%- include('../../shared/foot-page',) %>
 

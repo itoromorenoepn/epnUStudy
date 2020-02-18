@@ -24,6 +24,9 @@ export class CityEntity {
     @OneToMany(
         type => SectorEntity, // Entidad
         sector => sector.city, // Nombre del campo
+        {
+            onDelete:'CASCADE',
+        },
     )
     sectors: SectorEntity[];
 }

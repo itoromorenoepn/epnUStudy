@@ -23,6 +23,9 @@ export class SectorEntity {
  @ManyToOne(
         type => CityEntity, // Entidad
         city => city.sectors, // El campo de la relacion
+        {
+            onDelete:'CASCADE',
+        },
     )
     city: number | CityEntity;
    

@@ -17,7 +17,7 @@ import { SectorModule } from './sector/sector.module';
           name: 'default', // Nombre cadena de Conex.
           type: 'mysql',
           host: 'localhost',
-          port: 32769,
+          port: 32775,
           username: 'roger',
           password: '1234',
           database: 'ustudy',
