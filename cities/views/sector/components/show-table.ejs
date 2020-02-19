@@ -1,0 +1,75 @@
+<table class="table"> <!-- table -->
+    <thead> <!-- thead -->
+    <tr> <!-- table row -->
+        <th scope="col"> <!-- table header -->
+            ID
+        </th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <% sectors.forEach( (sector) => {%>
+        <%    if(sector!=undefined){%>
+            <tr> <!-- table row -->
+                <th scope="row">
+                    <%= sector.id%>
+                </th> <!-- table header -->
+                <td>
+                    <%= sector.name%>
+                </td> <!-- table detail -->
+                
+                <td>
+    <div class=row>
+        <div class="col-sm-4" >
+            <a href="../edit-sector/<%= sector.id %>">
+                <button type="button"
+                        class="btn btn-info btn-block">
+                    Edit
+                </button>
+            </a>
+        </div>
+        <div class="col-sm-4" >
+            <button type="button" class="btn btn-danger btn-block" data-toggle="modal"
+            data-target="#exampleModalLong">
+            Delete
+        </button>
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">If you delete the item it
+                                will be deleted with all the records</h5>
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Do you want to continue?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Close</button>
+                            <form action="../route/deleteone/<%= sector.id %>"  method="POST">
+                                <button type="submit" class="btn btn-danger btn-block"
+                                    data-toggle="modal" data-target="#exampleModalLong">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </td> <!-- table detail -->
+          
+            </tr>
+            <% }%><%}); %>
+
+        
+        </tbody> <!-- tbody -->
+</table>

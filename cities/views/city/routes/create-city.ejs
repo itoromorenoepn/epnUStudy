@@ -1,0 +1,48 @@
+<%- include('../../shared/header',) %>
+<% const isEditng = data.city != undefined;%>
+<div class="container">
+
+    
+    <% if(data.error){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= data.error %>
+        </div>
+    <% } %> 
+    <!-- CONDICION ? TRUE : FALSE -->
+    <h1><%= isEditng ? 'Editing ' + data.city.name : 'Create City' %></h1>
+
+   
+    <form action="/city<%= isEditng ? '/' + data.city.id : '' %>"
+        method="POST"
+    >
+            <div class="form-group">
+            <label form="nameID">Name</label>
+            <input  id="nameID"
+                    type="text"
+                    name="name"
+                    value="<%= isEditng ? data.city.name : '' %>"
+                    placeholder="Ej: Quito"
+                    title="Enter city name"
+                    class="form-control"
+            >
+            <small id="nombreIDHelp"
+                   class="form-text text-muted">
+                   the name must be more than 3 characters long
+            </small>
+        </div>
+
+        <button type="submit"
+                class ="btn btn-success"
+        >
+        <%= isEditng ? 'Edit ' + data.city.name : 'Create City' %>
+        </button>
+        <button type="reset"
+                class="btn btn-secondary"
+        >
+            Clean Form
+        </button>
+    </form>
+</div>
+
+<%- include('../../shared/foot-page',) %>
+
