@@ -14,26 +14,26 @@ export class CityService {
             .save(city);
     }
 
-    async buscarUno(idCiudad: number): Promise<CityEntity | string> {
+    async searchOne(idCiudad: number): Promise<CityEntity | string> {
         try {
             const respuesta =  await this._repositoryCity.findOne(idCiudad);
             if (respuesta) {
                 return respuesta;
             } else {
                 return new Promise((resolve, reject) => {
-                    reject('No existe resultados');
+                    reject('No results');
                 })
             }
               
         } catch(e) {
             console.error({
-                mensaje: 'Error buscando',
+                sms: 'Error search',
                 error: e
             })
         }
     }
 
-    buscar(
+    search(
         where: any = {},
         skip: number = 0,
         take: number = 10,
@@ -75,9 +75,16 @@ export class CityService {
                 order: order,
             });
     }
-    borrarUno(id: number): Promise<DeleteResult> {
+    deleteOne(id: number): Promise<DeleteResult> {
         return this._repositoryCity
             .delete(id);
     }
-
+    updateOne(
+        id: number,
+        city: CityEntity
+    ): Promise<CityEntity> {
+        city.id = id;
+        return this._repositoryCity
+            .save(city); // UPSERT
+    }
 }

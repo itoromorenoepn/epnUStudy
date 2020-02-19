@@ -11,10 +11,9 @@ import {
     Session,
     UnauthorizedException
 } from "@nestjs/common";
-//import { Controller } from "@nestjs/common";
-import {DeleteResult} from 'typeorm';
+import { DeleteResult } from 'typeorm';
 import * as Joi from '@hapi/joi';
-import {validate} from 'class-validator';
+import { validate } from 'class-validator';
 import { CityService } from "./city.service";
 import { CityEntity } from "./city.entity";
 import { CityCreateDto } from "./city.create-dto";
@@ -22,16 +21,40 @@ import { CityCreateDto } from "./city.create-dto";
 
 @Controller('city')
 export class CityController {
-    // nombre="";
     constructor(
         private readonly _cityService: CityService,
     ) {
     }
-    @Get()
-    hola(
-        
+    @Get('route/edit-city/:idCity')
+    async routeEditCity(
+        @Query('error') error: string,
+        @Param('idCity') idCity: string,
+        @Res() res,
     ) {
-        return 'Hola';
+        const query = {
+            id: idCity,
+        };
+        try {
+            const arrayCity = await this._cityService.search(query);
+            if (arrayCity.length > 0) {
+                res.render(
+                    'city/routes/create-city',
+                    {
+                        data: { error, city: arrayCity[0] },
+                    },
+                );
+            } else {
+                res.redirect(
+                    '/city/route/create-city?error=No existe ese usuario',
+                );
+            }
+        } catch (error) {
+            console.log(error);
+            res.redirect(
+                '/create/route/search-city/?error=Error editando usuario',
+            );
+        }
+
     }
 
     @Get('route/create-city')
@@ -48,17 +71,13 @@ export class CityController {
             },
         );
     }
-
-
     @Post()
     async createCity(
         @Body() city: CityEntity,
         @Res() res,
     ): Promise<void> {
-        //const cityCreateDTO = new City;
         const cityCreateDTO = new CityCreateDto();
         cityCreateDTO.name = city.name;
-        //usuarioCreateDTO.cedula = usuario.cedula;
         const errores = await validate(cityCreateDTO);
         if (errores.length > 0) {
             res.redirect(
@@ -89,7 +108,7 @@ export class CityController {
         @Query('error') error: string,
         @Res() res,
     ) {
-        const city = await this._cityService.buscar();
+        const city = await this._cityService.search();
         res.render(
             'city/routes/search-show-city',
             {
@@ -101,14 +120,14 @@ export class CityController {
             },
         );
     }
-    @Post(':id')
+    @Post('deleteone/:id')
     async deleteOne(
         @Param('id') id: string,
         @Res() res,
     ): Promise<void> {
         try {
             await this._cityService
-                .borrarUno(
+                .deleteOne(
                     +id,
                 );
             res.redirect(`/city/route/search-city?sms=City ID: ${id} delete`);
@@ -119,14 +138,21 @@ export class CityController {
     }
 
 
-
-
-
-
-
-
-
- 
+    @Post(':idCity')
+    async updateACity(
+        @Body() city: CityEntity,
+        @Param('idCity') id: string,
+        @Res() res,
+    ): Promise<void> {
+        await this._cityService
+            .updateOne(
+                +id,
+                city,
+            );
+        res.redirect(
+            '/city/route/search-city?sms=City ' + city.name + ' updating',
+        );
+    }
 
 
 }

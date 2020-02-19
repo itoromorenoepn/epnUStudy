@@ -12,10 +12,9 @@ import {
     UnauthorizedException,
     InternalServerErrorException
 } from "@nestjs/common";
-//import { Controller } from "@nestjs/common";
-import {DeleteResult} from 'typeorm';
+import { DeleteResult } from 'typeorm';
 import * as Joi from '@hapi/joi';
-import {validate} from 'class-validator';
+import { validate } from 'class-validator';
 import { SectorService } from "./sector.service";
 import { SectorEntity } from "./sector.entity";
 import { SectorCreateDto } from "./sector.create-dto";
@@ -26,75 +25,48 @@ import { CityService } from "src/city/city.service";
 
 @Controller('city/:idCity/sector')
 export class SectorController {
-    // nombre="";
     constructor(
         private readonly _sectorService: SectorService,
         private readonly _cityService: CityService
     ) {
     }
-    @Get()
-    hola(
-        
-    ) {
-        return 'Hola Pendejo';
-    }
-
     @Get('route/create-sector')
-    async routeCreateSector(
-        @Param('idCity') idCity: string | number,
-        @Param('error') error: string,
+    routeCreateSector(
+        @Query('error') error: string,
         @Res() res,
     ) {
-        idCity = +idCity;
-        const city = await this._cityService.buscarUno(idCity);
-        console.log(city)
-        const sector = await this._sectorService.buscar();
         res.render(
             'sector/routes/create-sector',
             {
                 data: {
-                    city,
-                    sector,
                     error,
                 },
             },
         );
     }
-
-    @Post()
-    async createSector(
+    @Post('')
+    async creteASector(
+        @Param('idCity') idCity: string | number,
         @Body() sector: SectorEntity,
         @Res() res,
-    ): Promise<void> {
-        //const cityCreateDTO = new City;
-        const sectorCreateDTO = new SectorCreateDto();
-        sectorCreateDTO.name = sector.name;
-        //usuarioCreateDTO.cedula = usuario.cedula;
-        const errores = await validate(sectorCreateDTO);
-        if (errores.length > 0) {
-            res.redirect(
-                '/sector/route/create-sector?error=Error validating',
-            );
-        } else {
-            try {
-                await this._sectorService
-                    .createOne(
-                        sector,
-                    );
-                res.redirect(
-                    '/sector/route/search-sector',
-                );
-            } catch (error) {
-                console.error(error);
-                res.redirect(
-                    '/create/routes/create-sector?error=Error of server',
-                );
-            }
-
+    ) {
+        idCity = +idCity;
+        const query = {
+            city: idCity,
+            name: sector.name
         }
 
+        const respuesta = await this._sectorService.createOne(query);
+        if (!respuesta) {
+            throw new InternalServerErrorException('Error creado');
+        }
+        res.redirect(
+            '../sector/route/search-sector',
+        );
+
     }
-    /*
+
+
     @Get('route/search-sector')
     async routeSearchCity(
         @Query('sms') sms: string,
@@ -102,66 +74,29 @@ export class SectorController {
         @Param('error') error: string,
         @Res() res,
     ) {
-try{
-    idCity = +idCity;
-    //const city = await this._cityService.buscarUno(idCity);
-    //console.log(city)
-    const sector = await this._sectorService.buscarUno(idCity);
-  //  if(sector[0]!){
-    res.render(
-        'sector/routes/search-show-sector',
-        {
-            data: {
-                sms,
-                sector,
-                error,
-            },
-        },
-    );
-  //  }
-   // else{
-    //    console.log("PERRO MALO")
-    //}
-}
-catch(error){console.error("error",error)}
-    
-    }*/
-    @Get('route/search-sector')
-    async routeSearchCity(
-        @Query('sms') sms: string,
-        @Param('idCity') idCity: string | number,
-        @Param('error') error: string,
-        @Res() res,
-    ) {
-        const consulta={
-            city:idCity,
+
+        const query = {
+            city: idCity,
 
         };
-try{
-    idCity = +idCity;
-    //const city = await this._cityService.buscarUno(idCity);
-    //console.log(city)
-    const sector = await this._sectorService.buscar(consulta);
-    
-  //  if(sector[0]!){
-    res.render(
-        'sector/routes/search-show-sector',
-        {
-            data: {
-                sms,
-                sector,
-                error,
-            },
-        },
-    );
-  //  }
-   // else{
-    //    console.log("PERRO MALO")
-    //}
-}
+        try {
 
-catch(error){console.error("error",error)}
-    }    
+            const sector = await this._sectorService.search(query);
+            console.log('id City: ', idCity)
+            res.render(
+                'sector/routes/search-show-sector',
+                {
+                    data: {
+                        sms,
+                        sector,
+                        error,
+                    },
+                },
+            );
+        }
+        catch (error) { console.error("error", error) }
+    }
+
     @Post('route/create-sector/')
     async creteSector(
         @Param('idCity') idCity: string | number,
@@ -173,30 +108,80 @@ catch(error){console.error("error",error)}
             city: idCity,
             name: sector.name
         }
-        
+
         const respuesta = await this._sectorService.createOne(query);
         if (!respuesta) {
-            throw new InternalServerErrorException('Error creado'); 
+            throw new InternalServerErrorException('Error creado');
         }
         res.redirect(
-            'search-sector',
+            ' ../route/search-sector',
         );
         return respuesta;
     }
-    @Post(':id')
+    @Post('route/deleteone/:id')
     async deleteOne(
         @Param('id') id: string,
         @Res() res,
     ): Promise<void> {
         try {
             await this._sectorService
-                .borrarUno(
+                .deleteOne(
                     +id,
                 );
-            res.redirect(`../sector/route/search-sector?sms=Sector ID: ${id} delete`);
+            res.redirect(`../search-sector?sms=Sector ID: ${id} delete`);
         } catch (error) {
             console.error(error);
-            res.redirect('../sector/route/search-sector?error=Error-Server');
+            res.redirect('../sector/search-sector?error=Error-Server');
         }
     }
+    @Post(':idSector')
+    async updateASector(
+        @Body() sector: SectorEntity,
+        @Param('idSector') id: string,
+        @Res() res,
+    ): Promise<void> {
+
+        await this._sectorService
+            .updateOne(
+                +id,
+                sector,
+            );
+        res.redirect(
+            '../route/search-sector?sms=Sector ' + sector.name + ' updating',
+        );
+
+    }
+
+    @Get('edit-sector/:idSector')
+    async routeEditCity(
+        @Query('error') error: string,
+        @Param('idSector') idSector: string,
+        @Res() res,
+    ) {
+        const consulta = {
+            id: idSector,
+        };
+        try {
+            const arraySector = await this._sectorService.search(consulta);
+            if (arraySector.length > 0) {
+                res.render(
+                    'sector/routes/create-sector',
+                    {
+                        data: { error, sector: arraySector[0] },
+                    },
+                );
+            } else {
+                res.redirect(
+                    '/sector/route/create-sector?error=No existe ese usuario',
+                );
+            }
+        } catch (error) {
+            console.log(error);
+            res.redirect(
+                '/create/route/search-sector/?error=Error editando usuario',
+            );
+        }
+
+    }
+
 }

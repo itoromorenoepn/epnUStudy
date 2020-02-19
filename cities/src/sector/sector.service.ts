@@ -19,7 +19,7 @@ export class SectorService {
         }
     }
 
-    buscar(
+    search(
         where: any = {},
         skip: number = 0,
         take: number = 10,
@@ -85,9 +85,17 @@ export class SectorService {
             })
         }
     }
-    borrarUno(id: number): Promise<DeleteResult> {
+    deleteOne(id: number): Promise<DeleteResult> {
         return this._repositorySector
             .delete(id);
+    }
+    updateOne(
+        id: number,
+        sector: SectorEntity
+    ): Promise<SectorEntity> {
+        sector.id = id;
+        return this._repositorySector
+            .save(sector); // UPSERT
     }
 
 }

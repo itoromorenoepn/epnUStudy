@@ -9,10 +9,11 @@
         </div>
     <% } %> 
     <!-- CONDICION ? TRUE : FALSE -->
-    <h1><%= isEditng ? 'Create sector for ' + data.city.name : 'Create Sector' %></h1>
+    
+    <h1><%= isEditng ? 'Editing ' + data.sector.name : 'Create Sector' %></h1>
 
    
-    <form action="/city<%= isEditng ? '/' + data.city.id : '' %>/sector/route/create-sector"
+    <form action="..<%= isEditng ? '/' + data.sector.id : '' %>/"
         method="POST"
     >
             <div class="form-group">
@@ -34,7 +35,7 @@
         <button type="submit"
                 class ="btn btn-success"
         >
-            Create Sector
+        <%= isEditng ? 'Edit ' + data.sector.name : 'Create Sector' %>
         </button>
         <button type="reset"
                 class="btn btn-secondary"
