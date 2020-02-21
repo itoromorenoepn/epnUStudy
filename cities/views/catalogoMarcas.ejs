@@ -1,0 +1,25 @@
+<%- include ('./cabecera')%>
+<link rel="stylesheet" href="/public/styles/catalogoStyle.css">
+<div class="jumbotron big-banner">
+    <div class="col-md-4">
+        <h1 class="display-5">Motor Store</h1>
+        <p class="lead">Catálogo de Marcas</p>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2">
+        <% datos.marcas.forEach(marca => {%>
+        <a href="/motocicletas/catalogo/<%=marca.id%> ">
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="<%=marca.urlLogo%>" class="card-img-top" alt="foto marca">
+                    <div class="card-body">
+                        <h5 class="card-title"><%=marca.nombreMarca%></h5>
+                        <p class="card-text"><%=marca.detalle%></p>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <% });%>
+    </div>
+</div>
+
+<%- include ('./pie') %>

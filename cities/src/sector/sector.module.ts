@@ -1,7 +1,7 @@
 import {Module} from "@nestjs/common";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import { SectorEntity } from "./sector.entity";
-import { SectorController } from "./sector.controller";
+import { SectorController, SectorControllerC } from "./sector.controller";
 import { SectorService } from "./sector.service";
 import { CityModule } from "src/city/city.module";
 
@@ -15,7 +15,7 @@ import { CityModule } from "src/city/city.module";
                 'default', // Nombre de la cadena de conex.
             ),
     ],  
-    controllers:[SectorController],
+    controllers:[SectorController, SectorControllerC],
     providers:[SectorService],
     exports: [SectorService]
 })

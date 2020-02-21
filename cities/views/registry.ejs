@@ -1,0 +1,45 @@
+<%- include('./cabecera') %>
+<link rel="stylesheet" href="/public/styles/registryStyle.css">
+
+<div class="big-banner">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="col-md-4">
+                    <h1 class="display-5">Motor Store</h1>
+                    <p class="lead">Regístrate ahora</p>
+                </div>
+                <div class="col-md-6">
+                    <form action="/api/usuario" method="POST">
+                        <div class="form-group">
+                            <label for="cedula">Cédula</label>
+                            <input type="text" class="form-control" id="cedula" name="cedula" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombreUsuario">Nombre de usuario</label>
+                            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contrasena">Contraseña</label>
+                            <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rol">Rol del usuario</label>
+                            <select class="form-control" id="rol" name="rol">
+                                <option value="A">Administrador</option>
+                                <option value="C">Cliente</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Registrarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('./pie') %>

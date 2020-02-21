@@ -1,0 +1,6 @@
+.big-banner {
+    background-image: url('/public/images/loginBckgnd.jpg');
+    background-size: cover;
+    position: relative;
+    height: 600px;
+}

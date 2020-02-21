@@ -1,0 +1,13 @@
+.big-banner {
+    background-image: url('/public/images/notPermissionBackground.jpg');
+    background-size: cover;
+    position: relative;
+    height: 600px;
+}
+
+h6 {
+    color: white;
+    font-size: 25px;
+    text-align: end;
+    padding: 25px;
+}

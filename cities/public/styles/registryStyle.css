@@ -1,0 +1,7 @@
+.big-banner {
+    background-image: url('/public/images/registerBckgnd.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 700px;
+}

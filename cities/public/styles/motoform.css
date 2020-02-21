@@ -1,0 +1,10 @@
+.big-banner {
+    background-image: url('/public/images/motoform.jpg');
+    background-size: cover;
+    position: relative;
+}
+
+.jumbotron {
+    opacity: 90%;
+    background-color: white;
+}

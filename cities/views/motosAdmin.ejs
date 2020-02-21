@@ -1,0 +1,38 @@
+<%- include ('./cabecera') %>
+<div class="jumbotron">
+    <% if(datos.info){ %>
+    <div class="alert alert-success" role="alert">
+        <%=datos.info%>
+    </div>
+    <% } %>
+    <div class="col-md-4">
+        <h1 class="display-5">Motor Store</h1>
+        <p class="lead">Administración de Motocicletas</p>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Motocicleta</th>
+                <th scope="col">Opciones</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% datos.motos.forEach(moto => { %>
+            <tr>
+                <th scope="row"><%=moto.id%></th>
+                <td><%=moto.modelo%></td>
+                <td><button type="button" class="btn btn-warning"
+                        onclick="location.href='/motocicletas/editar/<%=moto.id%>'"> Editar </button></td>
+                <td><button type="button" class="btn btn-danger"
+                        onclick="location.href='/api/motocicleta/eliminar/<%=moto.id%>'">Eliminar</button></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-success" onclick="location.href='/motocicletas/crear'">Añadir
+        nueva</button>
+</div>
+<%- include ('./pie') %>

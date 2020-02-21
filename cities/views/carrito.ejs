@@ -1,0 +1,33 @@
+<%- include ('./cabecera',
+    datos.session
+)%>
+<link rel="stylesheet" href="/public/styles/catalogoStyle.css">
+<div class="jumbotron big-banner">
+    <div class="col-md-4">
+        <h1 class="display-5">Motor Store</h1>
+        <p class="lead">Carrito</p>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2">
+        <% datos.session.usuario.carrito.lineasDeDetalle.forEach(lineaDeDetalle => {%>
+        <div class="col mb-4">
+            <div class="card">
+                <img src="<%=lineaDeDetalle.motocicleta.urlFoto%>" class="card-img-top" alt="foto motocicleta">
+                <div class="card-body">
+                    <h5 class="card-title">Cantidad <%=lineaDeDetalle.cantidad%></h5>
+                    <p class="card-text">Sub Total: <%=lineaDeDetalle.subTotal%>$</p>
+                </div>
+            </div>
+        </div>
+        <% });%>
+    </div>
+    <div>
+        <h6>Total: </h6> <%= datos.session.usuario.carrito.precio %>$
+    </div>
+    <form action="/api/carrito/generar" method="POST">
+        <label for="direccion">Direccion</label>
+        <input type="text" id="direccion" name="direccion">
+        <button type="submit" class="btn btn-success">Comprar</button>
+    </form>
+</div>
+
+<%- include ('./pie') %>

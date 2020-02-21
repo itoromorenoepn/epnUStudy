@@ -1,0 +1,12 @@
+.big-banner {
+    background-image: url('/public/images/compraBackgnd.jpg');
+    background-size: cover;
+    position: relative;
+    height: 600px;
+}
+
+h6 {
+    font-size: 25px;
+    text-align: end;
+    padding: 25px;
+}

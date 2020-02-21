@@ -185,3 +185,20 @@ export class SectorController {
     }
 
 }
+
+@Controller('api/sector')
+export class SectorControllerC {
+
+    constructor(
+        private readonly _sectorService: SectorService,
+    ) { }
+
+    @Get('searchCity/:cityId')
+    async getCitySector(
+        @Param('cityId') cityId: string,
+    ) {
+        return await this._sectorService.search({
+            cityId: +cityId
+        })
+    }
+}

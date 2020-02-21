@@ -1,0 +1,35 @@
+<%- include ('./cabecera',
+    datos.session
+)%>
+
+<link rel="stylesheet" href="/public/styles/catalogoStyle.css">
+<div class="jumbotron container">
+    <div class="col-md-4">
+        <h1 class="display-5">Motor Store</h1>
+        <p class="lead">Administración</p>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2">
+        <a href="marcas/administracion">
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="../public/images/brandsBackground.jpg" class="card-img-top" alt="foto motocicleta">
+                    <div class="card-body">
+                        <h5 class="card-title">Marcas</h5>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="motocicletas/administracion">
+            <div class="col mb-4">
+                <div class="card">
+                    <img src="../public/images/motorcyclesBackground.jpg" class="card-img-top" alt="foto motocicleta">
+                    <div class="card-body">
+                        <h5 class="card-title">Motocicletas</h5>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<%- include ('./pie') %>
