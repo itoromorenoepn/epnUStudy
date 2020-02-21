@@ -3,7 +3,7 @@ import { TeacherAssingmentEntity } from "src/teacherAssingment/teacherAssigment.
 import { ClassEntity } from "src/class/class.entity";
 
 @Entity('assingment')
-export class AssignmentEntity {
+export class AssingmentEntity {
     @PrimaryGeneratedColumn({
         type: 'int',
         unsigned: true,

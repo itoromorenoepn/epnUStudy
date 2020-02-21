@@ -20,6 +20,10 @@ export class RoleService {
         return this._repositorio.save(data);
     }
 
+    delete(id: number) {
+        return this._repositorio.delete(id);
+    }
+
     search(
         where: any = {},
         skip: number = 0,

@@ -1,7 +1,6 @@
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { CityEntity } from "src/city/city.entity";
-import { AddressEntity } from "src/address/address.entity";
-//import {UsuarioEntity} from "../usuario/usuario.entity";
+import { ClassEntity } from "src/class/class.entity";
 
 @Entity('sector')
 export class SectorEntity {
@@ -31,12 +30,12 @@ export class SectorEntity {
     city: number | CityEntity;
 
     @OneToMany(
-        type => AddressEntity,
-        address => address.sector,
+        type => ClassEntity,
+        classO => classO.sector,
         {
 
         },
     )
-    addresses: AddressEntity[]; 
+    classes: ClassEntity[];
 
 }

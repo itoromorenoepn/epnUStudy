@@ -1,8 +1,8 @@
 import { PrimaryGeneratedColumn, Index, Column, Entity, ManyToOne, OneToMany } from "typeorm";
-import { AddressEntity } from "src/address/address.entity";
 import { TeacherAssingmentEntity } from "src/teacherAssingment/teacherAssigment.entity";
-import { AssignmentEntity } from "src/assingment/assingment.entity";
+import { AssingmentEntity } from "src/assingment/assingment.entity";
 import { ClassStudentEntity } from "src/classStudent/classStudent.entity";
+import { SectorEntity } from "src/sector/sector.entity";
 
 @Entity('class')
 export class ClassEntity {
@@ -37,13 +37,13 @@ export class ClassEntity {
     price: number;
 
     @ManyToOne(
-        type => AddressEntity,
-        address => address.classes,
+        type => SectorEntity,
+        sector => sector.classes,
         {
 
         },
     )
-    address: number | AddressEntity;
+    sector: number | SectorEntity;
 
     @ManyToOne(
         type => TeacherAssingmentEntity,
@@ -52,10 +52,10 @@ export class ClassEntity {
     teacher: number | TeacherAssingmentEntity;
 
     @ManyToOne(
-        type => AssignmentEntity,
+        type => AssingmentEntity,
         assingment => assingment.classes,
     )
-    assingment: number | AssignmentEntity;
+    assingment: number | AssingmentEntity;
 
     @OneToMany(
         type => ClassStudentEntity,

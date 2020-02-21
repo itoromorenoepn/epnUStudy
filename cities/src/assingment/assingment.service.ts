@@ -1,23 +1,31 @@
 import { Injectable, BadRequestException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { AssignmentEntity } from "./assingment.entity";
+import { AssingmentEntity } from "./assingment.entity";
 
 @Injectable()
 export class AssingmentService {
     constructor(
-        @InjectRepository(AssignmentEntity)
-        private _repositorio: Repository<AssignmentEntity>
+        @InjectRepository(AssingmentEntity)
+        private _repositorio: Repository<AssingmentEntity>
     ) {
 
     }
 
-    find(id: number): Promise<AssignmentEntity | undefined> {
+    find(id: number): Promise<AssingmentEntity | undefined> {
         return this._repositorio.findOne(id);
     }
 
-    create(data: AssignmentEntity): Promise<AssignmentEntity | undefined> {
+    create(data: AssingmentEntity): Promise<AssingmentEntity | undefined> {
         return this._repositorio.save(data);
+    }
+
+    update(id: number, data: AssingmentEntity) {
+        return this._repositorio.update(id, data);
+    }
+
+    delete(id: number) {
+        return this._repositorio.delete(id);
     }
 
     search(
@@ -27,15 +35,15 @@ export class AssingmentService {
         order: any = {
             id: 'DESC',
         },
-    ): Promise<AssignmentEntity[]> {
+    ): Promise<AssingmentEntity[]> {
         return this._repositorio
-        .find(
-            {
-                where,
-                skip,
-                take,
-                order
-            }
-        );
+            .find(
+                {
+                    where,
+                    skip,
+                    take,
+                    order
+                }
+            );
     }
 }

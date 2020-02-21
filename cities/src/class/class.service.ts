@@ -20,6 +20,14 @@ export class ClassService {
         return this._repositorio.save(data);
     }
 
+    delete(id: number) {
+        return this._repositorio.delete(id);
+    }
+
+    update(id: number, data: ClassEntity) {
+        return this._repositorio.update(id,data);
+    }
+    
     search(
         where: any = {},
         skip: number = 0,

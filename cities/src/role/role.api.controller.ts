@@ -1,19 +1,15 @@
 import { Controller, Post, Body, Session, BadRequestException, Get, Param, Delete } from "@nestjs/common";
-import { TeacherAService } from "./teacherA.service";
+import { RoleService } from "./role.service";
 
 @Controller('api/teacherA')
-export class TeacherAApiController {
+export class RoleApiController {
     constructor(
-        private readonly _dbService: TeacherAService,
+        private readonly _dbService: RoleService,
     ) { }
 
     validatePermissions(session) {
         if (!session.user) {
             throw new BadRequestException("Not logged user")
-        }
-
-        if (session.user.rol != 'P') {
-            throw new BadRequestException('Not enough permission')
         }
     }
 
@@ -30,15 +26,15 @@ export class TeacherAApiController {
         }
     }
 
-    @Get(':teacherId')
+    @Get(':userId')
     async search(
-        @Param('teacherId') teacherId: string,
+        @Param('userId') userId: string,
         @Session() session,
     ) {
         try {
             this.validatePermissions(session)
             return await this._dbService.search(
-                { user: teacherId }
+                { user: userId }
             )
         } catch {
             throw new BadRequestException('User not logged in or not have enough permission')
@@ -57,4 +53,5 @@ export class TeacherAApiController {
             throw new BadRequestException('User not logged in or not have enough permission')
         }
     }
+
 }

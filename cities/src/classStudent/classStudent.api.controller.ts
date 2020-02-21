@@ -1,18 +1,27 @@
 import { Controller, Post, Body, Session, BadRequestException, Get, Param, Delete } from "@nestjs/common";
-import { TeacherAService } from "./teacherA.service";
+import { ClassStudentService } from "./classStudent.service";
 
 @Controller('api/teacherA')
-export class TeacherAApiController {
+export class ClassStudentApiController {
     constructor(
-        private readonly _dbService: TeacherAService,
+        private readonly _dbService: ClassStudentService,
     ) { }
 
-    validatePermissions(session) {
+    validatePermissionsStudent(session) {
         if (!session.user) {
             throw new BadRequestException("Not logged user")
         }
 
-        if (session.user.rol != 'P') {
+        if (session.user.rol != 'E') {
+            throw new BadRequestException('Not enough permission')
+        }
+    }
+
+    validatePermissionST(session) {
+        if (!session.user) {
+            throw new BadRequestException("Not logged user")
+        }
+        if (session.user.rol != 'P' || session.user.rol != 'E') {
             throw new BadRequestException('Not enough permission')
         }
     }
@@ -23,22 +32,37 @@ export class TeacherAApiController {
         @Session() session,
     ) {
         try {
-            this.validatePermissions(session)
+            this.validatePermissionsStudent(session)
             return await this._dbService.create(data)
         } catch {
             throw new BadRequestException('User not logged in or not have enough permission')
         }
     }
 
-    @Get(':teacherId')
+    @Get(':classId')
     async search(
-        @Param('teacherId') teacherId: string,
+        @Param('classId') classId: string,
         @Session() session,
     ) {
         try {
-            this.validatePermissions(session)
+            this.validatePermissionST(session)
             return await this._dbService.search(
-                { user: teacherId }
+                { class: classId }
+            )
+        } catch {
+            throw new BadRequestException('User not logged in or not have enough permission')
+        }
+    }
+
+    @Get(':studentId')
+    async searchClasses(
+        @Param('studentId') studentId: string,
+        @Session() session,
+    ) {
+        try {
+            this.validatePermissionST(session)
+            return await this._dbService.search(
+                { user: studentId }
             )
         } catch {
             throw new BadRequestException('User not logged in or not have enough permission')
@@ -51,10 +75,11 @@ export class TeacherAApiController {
         @Session() session,
     ) {
         try {
-            this.validatePermissions(session)
+            this.validatePermissionsStudent(session)
             return await this._dbService.delete(+id)
         } catch {
             throw new BadRequestException('User not logged in or not have enough permission')
         }
     }
+
 }
