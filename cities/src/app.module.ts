@@ -32,7 +32,7 @@ import { UsuarioEntity } from './usuario/usuario.entity';
           ],
           synchronize: true, // Crear -> true , Conectar -> false
         }
-    ),
+      ),
   ],
   controllers: [AppController],
   providers: [AppService],

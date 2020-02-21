@@ -1,5 +1,6 @@
-import {Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { CityEntity } from "src/city/city.entity";
+import { AddressEntity } from "src/address/address.entity";
 //import {UsuarioEntity} from "../usuario/usuario.entity";
 
 @Entity('sector')
@@ -19,14 +20,23 @@ export class SectorEntity {
     })
     name: string;
 
-    
- @ManyToOne(
+
+    @ManyToOne(
         type => CityEntity, // Entidad
         city => city.sectors, // El campo de la relacion
         {
-            onDelete:'CASCADE',
+            onDelete: 'CASCADE',
         },
     )
     city: number | CityEntity;
-   
+
+    @OneToMany(
+        type => AddressEntity,
+        address => address.sector,
+        {
+
+        },
+    )
+    addresses: AddressEntity[]; 
+
 }

@@ -71,7 +71,6 @@ export class UsuarioApiController {
         usuarioCreateDTO.nombre = usuario.nombre;
         usuarioCreateDTO.nombreUsuario = usuario.nombreUsuario;
         usuarioCreateDTO.contrasena = usuario.contrasena;
-        usuarioCreateDTO.rol = usuario.rol;
         const errores = await validate(usuarioCreateDTO);
         if (errores.length > 0) {
             console.log(errores)

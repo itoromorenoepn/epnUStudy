@@ -1,4 +1,7 @@
 import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { RoleEntity } from 'src/role/role.entity';
+import { TeacherAssingmentEntity } from 'src/teacherAssingment/teacherAssigment.entity';
+import { ClassStudentEntity } from 'src/classStudent/classStudent.entity';
 
 @Entity('usuario')
 export class UsuarioEntity {
@@ -47,19 +50,6 @@ export class UsuarioEntity {
     contrasena: string;
 
     @Index({
-        unique: false,
-    })
-    @Column(
-        {
-            type: 'char',
-            name: 'rol',
-            nullable: false,
-            comment: 'Rol del usuario',
-        }
-    )
-    rol: string;
-
-    @Index({
         unique: true,
     })
     @Column(
@@ -70,5 +60,32 @@ export class UsuarioEntity {
             comment: 'Cédula del usuario',
         })
     cedula: string;
+
+    @OneToMany(
+        type => RoleEntity,
+        role => role.user,
+        {
+
+        },
+    )
+    roles: number | RoleEntity[];
+
+    @OneToMany(
+        type => TeacherAssingmentEntity,
+        teacherAssingmentEntity => teacherAssingmentEntity.user,
+        {
+
+        },
+    )
+    assingments: number | TeacherAssingmentEntity[];
+
+    @OneToMany(
+        type => ClassStudentEntity,
+        classStudent => classStudent.user,
+        {
+
+        },
+    )
+    classesStudent: number | TeacherAssingmentEntity[];
 
 }

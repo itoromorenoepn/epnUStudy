@@ -1,4 +1,4 @@
-import {Column, Entity, Index, PrimaryGeneratedColumn, OneToMany} from "typeorm";
+import {Column, Entity, Index, PrimaryGeneratedColumn, OneToMany, ManyToOne} from "typeorm";
 import { SectorEntity } from "src/sector/sector.entity";
 
 @Entity('city')
@@ -29,4 +29,5 @@ export class CityEntity {
         },
     )
     sectors: SectorEntity[];
+
 }
