@@ -122,6 +122,7 @@ export class CityController {
     }
     @Post('deleteone/:id')
     async deleteOne(
+        
         @Param('id') id: string,
         @Res() res,
     ): Promise<void> {
