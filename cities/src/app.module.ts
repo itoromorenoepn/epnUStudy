@@ -34,12 +34,12 @@ import { TeacherAModule } from './teacherAssingment/TeacherA.module';
         {
           name: 'default', // Nombre cadena de Conex.
           type: 'mysql',
-          host: '192.168.99.100',
-          port: 32769,
-          username: 'appAdmin',
+          host: 'localhost',
+          port: 32771,
+          username: 'roger',
           password: '1234',
           database: 'ustudy',
-          dropSchema: false, // si ponemos falso no se borran los datos en la base 
+          dropSchema: true, // si ponemos falso no se borran los datos en la base 
           entities: [
             CityEntity,
             SectorEntity,
