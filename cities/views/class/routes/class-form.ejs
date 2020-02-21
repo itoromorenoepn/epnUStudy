@@ -1,18 +1,12 @@
-<%- include('../../shared/header',) %>
-<% const isEditng = data.city != undefined;%>
+<%- include('../../cabecera.ejs',) %>
 <div class="container">
 
 
-  <% if(data.error){ %>
   <div class="alert alert-danger" role="alert">
-    <%= data.error %>
   </div>
-  <% } %>
   <!-- CONDICION ? TRUE : FALSE -->
-  <h1><%= isEditng ? 'Editing ' + data.city.name : 'Class' %></h1>
 
-
-  <form action="/class<%= isEditng ? '/' + data.city.id : '' %>" method="POST">
+  <form action="/class" method="POST">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="street">Street</label>
@@ -35,7 +29,7 @@
     </div>
 
     <button type="submit" class="btn btn-success ">
-      <%= isEditng ? 'Edit ' + data.city.name : '    OK   ' %>
+      
     </button>
     <button type="reset" class="btn btn-secondary">
       Clean Form
@@ -43,5 +37,4 @@
   </form>
 </div>
 
-
-<%- include('../../shared/foot-page',) %>
+<%- include('../../pie.ejs',) %>

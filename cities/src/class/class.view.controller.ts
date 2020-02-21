@@ -1,13 +1,21 @@
-import { Controller, Get, Res } from "@nestjs/common";
+import { Controller, Get, Res, Session } from "@nestjs/common";
 
 @Controller('class')
 export class ClassViewController {
 
 
-    @Get()
-    getClasses(
+    @Get(":id")
+    getClass(
         @Res() res,
+        @Session() session,
     ) {
-        res.render('class/routes/show-class');
+        res.render('class/routes/class-form',
+        {
+            datos: {
+                session
+            }
+        });
     }
+
+    
 }

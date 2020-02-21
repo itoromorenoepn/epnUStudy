@@ -21,12 +21,6 @@ export class UsuarioCreateDto {
 
     @IsNotEmpty()
     @IsString()
-    @MinLength(1)
-    @MaxLength(1)
-    rol:string;
-
-    @IsNotEmpty()
-    @IsString()
     @MinLength(10)
     @MaxLength(10)
     cedula:string;

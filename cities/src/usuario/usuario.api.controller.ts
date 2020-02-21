@@ -62,6 +62,13 @@ export class UsuarioApiController {
         res.redirect('/usuario/login');
     }
 
+    @Get('sesion')
+    sesion(
+        @Session() session,
+    ) {
+        return session;
+    }
+
     @Post()
     async crearUsuario(
         @Body() usuario: UsuarioEntity,
