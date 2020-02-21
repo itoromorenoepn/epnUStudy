@@ -1,5 +1,7 @@
 import { Controller, Post, Body, Session, BadRequestException, Get, Param, Delete } from "@nestjs/common";
 import { RoleService } from "./role.service";
+import { RoleDto } from "./role.dto";
+import { validate } from "class-validator";
 
 @Controller('api/teacherA')
 export class RoleApiController {
@@ -20,7 +22,12 @@ export class RoleApiController {
     ) {
         try {
             this.validatePermissions(session)
-            return await this._dbService.create(data)
+            let dto = new RoleDto();
+            dto.name = data.name;
+            const errores = await validate(dto);
+            if (errores.length > 0) {
+                return await this._dbService.create(data)
+            }
         } catch {
             throw new BadRequestException('User not logged in or not have enough permission')
         }

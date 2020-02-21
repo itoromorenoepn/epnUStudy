@@ -1,5 +1,7 @@
 import { Controller, Post, Body, Session, BadRequestException, Get, Param, Delete, Put } from "@nestjs/common";
 import { AssingmentService } from "./assingment.service";
+import { AssingmentDto } from './assingment.dto';
+import { validate } from "class-validator";
 
 @Controller('api/teacherA')
 export class AssingmentApiController {
@@ -24,7 +26,15 @@ export class AssingmentApiController {
     ) {
         try {
             this.validatePermissions(session)
-            return await this._dbService.create(data)
+            let assingmentDto = new AssingmentDto();
+            assingmentDto.name = data.name;
+            const errores = await validate(assingmentDto);
+            if (errores.length > 0) {
+                console.log(errores);
+                throw new BadRequestException(errores[0]);
+            } else {
+                return await this._dbService.create(data)
+            }
         } catch {
             throw new BadRequestException('User not logged in or not have enough permission')
         }
@@ -38,7 +48,15 @@ export class AssingmentApiController {
     ) {
         try {
             this.validatePermissions(session)
-            return await this._dbService.update(+id, data)
+            let assingmentDto = new AssingmentDto();
+            assingmentDto.name = data.name;
+            const errores = await validate(assingmentDto);
+            if (errores.length > 0) {
+                console.log(errores);
+                throw new BadRequestException(errores[0]);
+            } else {
+                return await this._dbService.update(+id, data)
+            }
         } catch {
             throw new BadRequestException('User not logged in or not have enough permission')
         }
