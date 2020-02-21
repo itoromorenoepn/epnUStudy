@@ -1,0 +1,30 @@
+<%- include('../cabecera.ejs',) %>
+<div class="container">
+
+    <h1>Select your role</h1>
+    <form action="" method="POST">
+        <div class="center">
+            <br></br>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="teacher" id="check" name="check">
+                <label class="form-check-label" for="check">
+                    Teacher
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="student" id="check" name="check">
+                <label class="form-check-label" for="check">
+                    Student
+                </label>
+            </div>
+            <button type="submit" class="btn btn-success ">
+                 OK
+            </button>
+            <button type="submit" class="btn btn-primary">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
+
+<%- include('../pie.ejs',) %>
