@@ -9,13 +9,13 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  @Get('check')
+  @Get('chec')
   check(
     @Res() res,
     @Session() session,
   ){
     res.render(
-      'rol/check-rol',
+      'rol/select-rol',
       {
         datos: {
           session
@@ -32,5 +32,49 @@ export class AppController {
     console.log(rol)
   }  
 
+  @Get('yourclass')
+  your(
+    @Res() res,
+    @Session() session,
+  ){
+    res.render(
+      'class/routes/show-class',
+      {
+        datos: {
+          session
+        }
+      }
+  );
+  }
+  @Get('yoursubject')
+  yourSu(
+    @Res() res,
+    @Session() session,
+  ){
+    res.render(
+      'class/routes/show-class',
+      {
+        datos: {
+          session
+        }
+      }
+  );
+  //return "hola";
+  }
+  @Get('createclass')
+  createClass(
+    @Res() res,
+    @Session() session,
+  ){
+    res.render(
+      'class/routes/class-form',
+      {
+        datos: {
+          session
+        }
+      }
+  );
+  //return "hola";
+  }
 }
   
