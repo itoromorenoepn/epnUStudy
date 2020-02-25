@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Session, BadRequestException, Get, Param, Delete, Put } from "@nestjs/common";
+import { Controller, Post, Body, Session, BadRequestException, Get, Param, Delete, Put, Res } from "@nestjs/common";
 import { AssingmentService } from "./assingment.service";
 import { AssingmentDto } from './assingment.dto';
 import { validate } from "class-validator";
@@ -23,6 +23,7 @@ export class AssingmentApiController {
     async create(
         @Body() data,
         @Session() session,
+        @Res() res,
     ) {
         try {
             this.validatePermissions(session)
@@ -33,7 +34,15 @@ export class AssingmentApiController {
                 console.log(errores);
                 throw new BadRequestException(errores[0]);
             } else {
+                res.redirect('assingment/create',
+            {
+                datos: {
+                    session
+                }
+            });
                 return await this._dbService.create(data)
+                ///assingment/create
+                
             }
         } catch {
             throw new BadRequestException('User not logged in or not have enough permission')

@@ -35,7 +35,7 @@ import { TeacherAModule } from './teacherAssingment/TeacherA.module';
           name: 'default', // Nombre cadena de Conex.
           type: 'mysql',
           host: 'localhost',
-          port: 32771,
+          port: 32769,
           username: 'roger',
           password: '1234',
           database: 'ustudy',

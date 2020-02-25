@@ -3,10 +3,12 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AssingmentService } from "./assingment.service";
 import { AssingmentApiController } from "./assingment.api.controller";
 import { AssingmentEntity } from "./assingment.entity";
+import { AssingmentViewController } from "./assigment.view.controller";
 
 @Module({
     controllers:[
         AssingmentApiController,
+        AssingmentViewController,
     ],
     providers: [
         AssingmentService,

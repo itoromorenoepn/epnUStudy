@@ -41,10 +41,10 @@ export class UsuarioApiController {
             } else {
                 res.render('logIn', {
                     datos: {
-                      session,
-                      error: "Credenciales incorrectas"
+                        session,
+                        error: "Credenciales incorrectas"
                     }
-                  });
+                });
             }
         } catch (error) {
             throw new BadRequestException('Error', 'Error autenticando');
@@ -72,6 +72,8 @@ export class UsuarioApiController {
     @Post()
     async crearUsuario(
         @Body() usuario: UsuarioEntity,
+        @Res() res,
+        @Session() session,
     ): Promise<UsuarioEntity> {
         const usuarioCreateDTO = new UsuarioCreateDto()
         usuarioCreateDTO.cedula = usuario.cedula;
@@ -79,15 +81,24 @@ export class UsuarioApiController {
         usuarioCreateDTO.nombreUsuario = usuario.nombreUsuario;
         usuarioCreateDTO.contrasena = usuario.contrasena;
         const errores = await validate(usuarioCreateDTO);
+
         if (errores.length > 0) {
             console.log(errores)
             throw new BadRequestException('Los datos ingresados son incorrectos');
         } else {
+            res.render('rol/check-rol',
+            {
+                datos: {
+                    session
+                }
+            });
             return this._usuarioService
                 .crearUno(
                     usuario,
-                )
+                )           
+
         }
+
     }
 
     @Get()

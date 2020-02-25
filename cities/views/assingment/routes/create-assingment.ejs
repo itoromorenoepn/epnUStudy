@@ -1,0 +1,48 @@
+<%- include('../../cabecera.ejs',) %>
+<% const isEditng = datos.assingment != undefined;%>
+<div class="container">
+
+    
+    <% if(datos.error){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= datos.error %>
+        </div>
+    <% } %> 
+    <!-- CONDICION ? TRUE : FALSE -->
+    <h1><%= isEditng ? 'Editing ' + datos.assingment.name : 'Create Assingment' %></h1>
+
+   
+    <form action="/api/teacherA<%= isEditng ? '/' + datos.assingment.id : '/create' %>"
+        method="POST"
+    >
+            <div class="form-group">
+            <label form="nameID">Name</label>
+            <input  id="nameID"
+                    type="text"
+                    name="name"
+                    value="<%= isEditng ? datos.assingment.name : '' %>"
+                    placeholder="Ej: Assingment"
+                    title="Enter Assingment name"
+                    class="form-control"
+            >
+            <small id="nombreIDHelp"
+                   class="form-text text-muted">
+                   the name must be more than 3 characters long
+            </small>
+        </div>
+
+        <button type="submit"
+                class ="btn btn-success"
+        >
+        <%= isEditng ? 'Edit ' + datos.assingment.name : 'Create Assingment' %>
+        </button>
+        <button type="reset"
+                class="btn btn-secondary"
+        >
+            Clean Form
+        </button>
+    </form>
+</div>
+
+<%- include('../../pie.ejs',) %>
+
